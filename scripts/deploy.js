@@ -13,7 +13,7 @@ const main = async () => {
     const contract = await Token.deploy();
 //--------------------------------------------------------------------------
 /*Now let's just invoke the async function above*/
-    await contract.deployed();
+    await contract.deployed(); 
 //--------------------------------------------------------------------------
 /*Now, let's just log everything to the console*/
     console.log(
