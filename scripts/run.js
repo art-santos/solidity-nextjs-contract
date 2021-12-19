@@ -35,14 +35,20 @@ the wallet address of who's the responsible for the action*/
 //  userWave = await waveContract.wave();
 //--------------------------------------------------------------------------
 //If we want to test the function with some random person, we can do it like this:
-    userWave = await waveContract.connect(randomPerson).wave();
+/*ps: after the last update, an string is required to run the program*/
+    userWave = await waveContract.connect(randomPerson).wave('message');
 //--------------------------------------------------------------------------
-//Now let's await the result of our wave action
-    await userWave.wait();
+/*Let's also create an message signed by a random user
+ps: bellow there's also another method to create a message signed by a random user*/
+    const [_, randomMessager] = await hre.ethers.getSigners();
+    const message = await waveContract.connect(randomMessager).wave('a hole new message');
+    await message.wait();
 //--------------------------------------------------------------------------
-//Now let's get the new waveCount again
-    waveCount = await waveContract.getTotalWaves();
+/*Let's also get all waves that our frinds have send to us*/
+    const waves = await waveContract.getAllWaves();
+    console.log("All Waves:", waves);
 //--------------------------------------------------------------------------
+
 }
 //--------------------------------------------------------------------------
 //Runner for the main function. Responsible for trying and catching errors in the exe.
